@@ -1,12 +1,12 @@
 <div id="<%= dom_id client %>">
-  <tr>
-    <th scope="row"><%= client.id %></th>
-    <td><%= client.name %></td>
-    <td><%= client.age %></td>
-    <td><%= client.address %></td>
-    <td><%= client.movies.last %></td>
-    <td><%= link_to "Show this client", client %></td>
-    <td><%= link_to "Edit this client", edit_client_path(client) %></td>
-    <td><%= button_to "Destroy this client", @client, method: :delete %></td>
-  </tr>
+  <ul>
+    <li><strong>ID:</strong> <%= client.id %></li>
+    <li><strong>Name:</strong> <%= client.name %></li>
+    <li><strong>Age:</strong> <%= client.age %></li>
+    <li><strong>Address:</strong> <%= client.address %></li>
+    <li><strong>Last Movie:</strong> <%= client.movies.last.try(:title) %></li>
+    <li><%= link_to "Show this client", client %></li>
+    <li><%= link_to "Edit this client", edit_client_path(client) %></li>
+    <li><%= button_to "Destroy this client", client, method: :delete, data: { confirm: "Are you sure?" } %></li>
+  </ul>
 </div>
