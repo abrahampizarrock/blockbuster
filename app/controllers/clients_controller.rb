@@ -50,14 +50,25 @@ class ClientsController < ApplicationController
 
   # DELETE /clients/1 or /clients/1.json
   def destroy
-    @client.destroy
-
-    respond_to do |format|
-      format.html { redirect_to clients_url, notice: "Client was successfully destroyed." }
-      format.json { head :no_content }
+    @client = Client.find_by(id: params[:id])
+  
+    if @client
+      # Elimina todas las películas relacionadas con el cliente
+      @client.movies.destroy_all
+  
+      # Ahora puedes eliminar al cliente
+      @client.destroy
+  
+      respond_to do |format|
+        format.html { redirect_to clients_url, notice: "Client and related movies were successfully destroyed." }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to clients_url, alert: "Client not found"
     end
   end
-
+  
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_client
